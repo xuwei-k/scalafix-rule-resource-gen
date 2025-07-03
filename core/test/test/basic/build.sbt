@@ -5,7 +5,7 @@ scalaVersion := "2.13.16"
 enablePlugins(ScalafixRuleResourceGen)
 
 TaskKey[Unit]("check") := {
-  val jar = (Compile / packageBin).value
+  val jar = Compat.toFile((Compile / packageBin).value, fileConverter.value)
   IO.withTemporaryDirectory { tmp =>
     IO.unzip(jar, tmp)
     val lines = IO.readLines(tmp / "META-INF/services/scalafix.v1.Rule")
