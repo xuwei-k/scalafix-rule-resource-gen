@@ -83,4 +83,4 @@ val `scalafix-rule-resource-gen` = projectMatrix
     },
   )
 
-ThisBuild / scalafixDependencies += "com.github.xuwei-k" %% "scalafix-rules" % "0.6.11"
+ThisBuild / scalafixDependencies += "com.github.xuwei-k" %% "scalafix-rules" % "0.6.13"
