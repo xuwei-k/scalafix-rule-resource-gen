@@ -78,7 +78,7 @@ val `scalafix-rule-resource-gen` = projectMatrix
         case "2.12" =>
           sbtVersion.value
         case _ =>
-          "2.0.0-RC3"
+          "2.0.0-RC4"
       }
     },
   )
