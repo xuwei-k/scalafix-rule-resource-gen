@@ -1,6 +1,6 @@
 libraryDependencies += "ch.epfl.scala" %% "scalafix-core" % sys.props("scalafix.version")
 
-scalaVersion := "2.13.16"
+scalaVersion := "2.13.17"
 
 enablePlugins(ScalafixRuleResourceGen)
 
