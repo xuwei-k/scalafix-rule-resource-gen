@@ -61,7 +61,7 @@ val `scalafix-rule-resource-gen` = projectMatrix
   .in(file("core"))
   .enablePlugins(SbtPlugin)
   .jvmPlatform(
-    Seq("2.12.20", "3.7.3")
+    Seq("2.12.20", "3.7.4")
   )
   .settings(
     commonSettings,
@@ -78,7 +78,7 @@ val `scalafix-rule-resource-gen` = projectMatrix
         case "2.12" =>
           sbtVersion.value
         case _ =>
-          "2.0.0-RC6"
+          "2.0.0-RC8"
       }
     },
   )
