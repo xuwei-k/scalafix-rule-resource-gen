@@ -2,6 +2,7 @@ package scalafix_rule_resource_gen
 
 import sbt.*
 import sbt.Keys.*
+import xsbti.api.DefinitionType
 
 object ScalafixRuleResourceGen extends AutoPlugin {
 
@@ -12,10 +13,13 @@ object ScalafixRuleResourceGen extends AutoPlugin {
         .apis
         .internal
         .collect {
-          case (className, analyzed) if analyzed.api.classApi.structure.parents.collect {
-                case p: xsbti.api.Projection =>
-                  p.id
-              }.exists(Set("SyntacticRule", "SemanticRule")) =>
+          case (className, analyzed)
+              if analyzed.api.classApi.structure.parents.collect { case p: xsbti.api.Projection =>
+                p.id
+              }.exists(
+                Set("SyntacticRule", "SemanticRule")
+              ) && (analyzed.api.classApi.definitionType == DefinitionType.ClassDef) &&
+                !analyzed.api.classApi.modifiers.isAbstract =>
             className
         }
         .toList
