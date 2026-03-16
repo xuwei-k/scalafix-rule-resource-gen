@@ -20,3 +20,15 @@ abstract class AbstractClass extends SyntacticRule("AbstractClass") {
     Patch.empty
   }
 }
+
+class ConstructorNotPublic private() extends SyntacticRule("ConstructorNotPublic") {
+  override def fix(implicit doc: SyntacticDocument): Patch = {
+    Patch.empty
+  }
+}
+
+class ConstructorArgs(x: Int) extends SyntacticRule("ConstructorArgs") {
+  override def fix(implicit doc: SyntacticDocument): Patch = {
+    Patch.empty
+  }
+}
