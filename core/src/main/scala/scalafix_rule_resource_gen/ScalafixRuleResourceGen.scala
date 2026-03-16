@@ -6,9 +6,16 @@ import xsbti.api.DefinitionType
 
 object ScalafixRuleResourceGen extends AutoPlugin {
 
+  object autoImport {
+    @transient
+    val scalafixRuleResourceGenRuleNames = taskKey[Seq[String]]("")
+  }
+
+  import autoImport.*
+
   override val projectSettings: Seq[Def.Setting[?]] = Def.settings(
-    Compile / resourceGenerators += Def.task {
-      val rules = (Compile / compile).value
+    scalafixRuleResourceGenRuleNames := {
+      (Compile / compile).value
         .asInstanceOf[sbt.internal.inc.Analysis]
         .apis
         .internal
@@ -24,6 +31,9 @@ object ScalafixRuleResourceGen extends AutoPlugin {
         }
         .toList
         .sorted
+    },
+    Compile / resourceGenerators += Def.task {
+      val rules = scalafixRuleResourceGenRuleNames.value
       val log = streams.value.log
       if (rules.isEmpty) {
         log.warn("not found scalafix rule")
