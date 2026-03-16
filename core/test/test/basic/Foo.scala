@@ -14,3 +14,9 @@ class Bar extends SemanticRule("Bar") {
     Patch.empty
   }
 }
+
+abstract class AbstractClass extends SyntacticRule("AbstractClass") {
+  override def fix(implicit doc: SyntacticDocument): Patch = {
+    Patch.empty
+  }
+}
