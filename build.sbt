@@ -7,6 +7,7 @@ val commonSettings = Def.settings(
     scalaBinaryVersion.value match {
       case "2.12" =>
         Seq(
+          "-release:8",
           "-language:higherKinds",
           "-Xsource:3",
         )
