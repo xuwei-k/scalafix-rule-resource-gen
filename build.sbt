@@ -1,6 +1,7 @@
 import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations.*
 
 def sbt2 = "2.0.0"
+def sbt1 = "1.12.12"
 
 val commonSettings = Def.settings(
   organization := "com.github.xuwei-k",
@@ -56,15 +57,17 @@ releaseProcess := Seq[ReleaseStep](
   pushChanges
 )
 
-commonSettings
-
-publish / skip := true
+lazy val `scalafix-rule-resource-gen-root` = rootProject.autoAggregate.settings(
+  commonSettings,
+  publish / skip := true,
+)
 
 val `scalafix-rule-resource-gen` = projectMatrix
   .in(file("core"))
   .enablePlugins(SbtPlugin)
+  .defaultAxes(VirtualAxis.jvm)
   .jvmPlatform(
-    Seq("2.12.21", scala_version_from_sbt_version.ScalaVersionFromSbtVersion(sbt2))
+    Seq(sbt1, sbt2).map(scala_version_from_sbt_version.ScalaVersionFromSbtVersion.apply)
   )
   .settings(
     commonSettings,
@@ -79,8 +82,8 @@ val `scalafix-rule-resource-gen` = projectMatrix
     pluginCrossBuild / sbtVersion := {
       scalaBinaryVersion.value match {
         case "2.12" =>
-          sbtVersion.value
-        case _ =>
+          sbt1
+        case "3" =>
           sbt2
       }
     },
