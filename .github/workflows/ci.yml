@@ -30,8 +30,10 @@ jobs:
         distribution: temurin
     - uses: sbt/setup-sbt@v1
     - run: sbt -v
+           --server
            "all scalafmtSbtCheck scalafmtCheckAll scalafixCheckAll scalafixConfigRuleNamesSortCheck"
     - run: sbt -v
+           --server
            "project scalafix-rule-resource-gen${{ matrix.project }}"
            test
            scripted
